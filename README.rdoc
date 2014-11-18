@@ -1,28 +1,83 @@
-== README
+Welcome to a quick tutorial on Ruby on Rails.
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+The first thing we are going to do is make a project. To do this we need to run a command called rails new. This command will create the basic file structure for any rails project and for this project we are going to make a website you could use as a blogging website, so let's call it blogger. So to use this lets run the following command.
 
-Things you may want to cover:
+rails new blogger
 
-* Ruby version
+Now I am going to replace the default Gemfile with a Gemfile I use with most of my other projects, Not all of the gems in here are used for this project, but I recommend on your own project to check out a few, such as cancancan or bootstrap-sass. The following list of gems is what I placed in the Gemfile which you can find in the main part of rails.
 
-* System dependencies
+For those of you who are not familiar with gems, they are libraries, or other peoples code that you can pull into your code to make your life easier and your development faster.
 
-* Configuration
+source 'https://rubygems.org'
 
-* Database creation
+ruby '2.0.0'
+gem 'rails', '4.0.0'
+gem 'jquery-rails'
+gem 'jbuilder', '~> 1.2'
+gem 'devise'
+gem "therubyracer"
+gem 'cancancan'
+gem 'whenever', :require => false
+gem 'unicorn'
+gem 'capricorn'
+gem "rspec-rails", :group => [:development, :test]
+gem "capybara"
+gem 'coffee-rails', '~> 4.0.0'
+gem 'uglifier', '>= 1.3.0'
 
-* Database initialization
+#bootstrap
+gem 'bootstrap-sass', '~> 3.3.0'
+gem 'sass-rails', '>= 3.2'
+gem 'autoprefixer-rails'
+gem 'turbolinks'
 
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
+group :doc do
+  # bundle exec rake doc:rails generates the API under doc/api.
+  gem 'sdoc', require: false
+end
 
 
-Please feel free to use a different markup language if you do not plan to run
-<tt>rake doc:app</tt>.
+
+group :development, :test do
+  gem 'better_errors', '1.0.1'
+  gem 'binding_of_caller', '0.7.2'
+  gem 'factory_girl_rails'
+  gem 'sqlite3'
+end
+group :production do
+  gem 'rails_12factor'
+  gem 'pg'
+end
+
+After placing the gems that you care about into the Gemfile you need to install them on your project. To install the gems you run the simple command of
+
+bundle install
+
+Now lets see our website working and show how easy it is to start a website. To start a rails website all you have to do from the command line is run rails server, or for short rails s.
+
+rails server
+
+Well that is great that you have a simple application, but let us make it useful now. So we are going to use scaffolding to help create a post that users can post on our website. The reason why scaffolding is so nice and convenient is it takes care of a lot of different aspects of the program for you. This will create the model, view and controller files that you need and get you up and running quickly.
+
+The following command will allow us to make objects posts that
+
+rails generate scaffold post title:string post:text
+
+Now if you go to the website bellow you will notice you have an error. Read the error and it will describe what is the problem.
+
+http://localhost:3000/blogs
+
+The problem is your rails app knows you have tried to create a new table in your database, but that your database hasn't added that table. To add that table you need to run the following command. This tells your database to add the table or the changes to a table and migrate the database, not create or destroy the database, but to update the current one
+
+rake db:migrate
+
+Now if you go back to the page bellow you will see that it worked and you can click on the create link to create a new blog.
+
+http://localhost:3000/blogs
+
+Though we now most websites have static pages, such as a home page, about, faq,etc. Let us create this. To do so we are going to generate a controller for the static pages. This will create a view and a controller and will not create a model if you notice. This is great when you don't need to worry about storing data.
+
+rails g controller static_pages
+
+
+MORE BEING UPDATED
